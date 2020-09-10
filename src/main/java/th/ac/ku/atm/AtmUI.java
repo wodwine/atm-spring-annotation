@@ -5,10 +5,8 @@ import java.util.Scanner;
 public class AtmUI {
     private ATM atm;
 
-    public AtmUI() {
-        DataSource dataSourceDB = new DataSourceDB();
-        Bank bankWine = new Bank("Wine's Bank",dataSourceDB);
-        atm = new ATM(bankWine);
+    public AtmUI(ATM atm) {
+        this.atm = atm;
     }
 
     public void run() {
