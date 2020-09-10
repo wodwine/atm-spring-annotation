@@ -1,5 +1,7 @@
 package th.ac.ku.atm;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +14,19 @@ import java.util.Scanner;
 @Component
 @Primary
 public class DataSourceFile implements DataSource {
+
+    private String filename;
+
+    @Autowired
+    public DataSourceFile(@Value("${filename}") String filename) {
+        this.filename = filename;
+    }
+
     public Map<Integer, Customer> readCustomer() {
         // ...... connect to database ....  \\
         Map<Integer, Customer> customers = new HashMap<>();
         try {
-            File myObj = new File("customers.txt");
+            File myObj = new File(filename);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
